@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de l'Hôpital</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #map-container { position: relative; width: 100%; max-width: 800px; margin: auto; }
+        #map { width: 100%; height: auto; }
+        .user-location {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Plan de l'Hôpital</h1>
+    <div id="map-container">
+        <img id="map" src="plan_hopital.jpg" alt="Plan de l'hôpital">
+        <div id="user-location" class="user-location"></div>
+    </div>
+    <button onclick="getLocation()">Se localiser</button>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("La géolocalisation n'est pas supportée par votre navigateur.");
+            }
+        }
+
+        function showPosition(position) {
+            let x = (position.coords.longitude - fakeLongitudeMin) / (fakeLongitudeMax - fakeLongitudeMin) * 100;
+            let y = (1 - (position.coords.latitude - fakeLatitudeMin) / (fakeLatitudeMax - fakeLatitudeMin)) * 100;
+
+            let userLocation = document.getElementById("user-location");
+            userLocation.style.left = x + "%";
+            userLocation.style.top = y + "%";
+            userLocation.style.display = "block";
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("Vous devez autoriser la localisation pour utiliser cette fonctionnalité.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("La localisation est indisponible.");
+                    break;
+                case error.TIMEOUT:
+                    alert("La demande de localisation a expiré.");
+                    break;
+                default:
+                    alert("Une erreur inconnue est survenue.");
+            }
+        }
+
+        // Valeurs fictives pour la géolocalisation sur le plan
+        let fakeLongitudeMin = 2.3488;
+        let fakeLongitudeMax = 2.3500;
+        let fakeLatitudeMin = 48.8534;
+        let fakeLatitudeMax = 48.8545;
+    </script>
+</body>
+</html>
