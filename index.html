@@ -18,15 +18,13 @@
     <button id="location-btn">Se localiser</button>
 
     <script>
-       // script.js
-
-// Fonction pour obtenir la position de l'utilisateur
+      // Fonction pour obtenir la position de l'utilisateur
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError, {
-            enableHighAccuracy: true, // Demander des résultats plus précis
-            timeout: 10000, // Temps d'attente maximum (en ms)
-            maximumAge: 0 // Ne pas utiliser une position mise en cache
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
         });
     } else {
         alert("La géolocalisation n'est pas supportée par votre navigateur.");
@@ -35,34 +33,35 @@ function getLocation() {
 
 // Fonction pour afficher la position de l'utilisateur sur le plan
 function showPosition(position) {
-    // Définir les bornes géographiques du plan de l'hôpital
-    let longitude_min = 1.4598;   // Longitude minimale (exemple)
-    let longitude_max = 1.4602;   // Longitude maximale (exemple)
-    let latitude_min = 43.6280;   // Latitude minimale (exemple)
-    let latitude_max = 43.6277;   // Latitude maximale (exemple)
+    // Bornes géographiques du plan de l'hôpital
+    let longitude_min = 1.4598; 
+    let longitude_max = 1.4602; 
+    let latitude_min = 43.6280; 
+    let latitude_max = 43.6277; 
 
     // Coordonnées GPS de l'utilisateur
     let longitude = position.coords.longitude;
     let latitude = position.coords.latitude;
 
-    // Vérification des coordonnées GPS de l'utilisateur
     console.log("Coordonnées utilisateur:", longitude, latitude);
 
-    // Vérification si les coordonnées sont dans la zone
-    if (longitude >= longitude_min && longitude <= longitude_max && latitude >= latitude_min && latitude <= latitude_max) {
-        // Calcul des pourcentages pour la longitude et la latitude
-        let longitude_percentage = (longitude - longitude_min) / (longitude_max - longitude_min) * 100;
-        let latitude_percentage = (latitude_max - latitude) / (latitude_max - latitude_min) * 100;
+    // Vérifier si l'utilisateur est dans les bornes
+    if (longitude >= longitude_min && longitude <= longitude_max && latitude <= latitude_min && latitude >= latitude_max) {
+        // Calcul du pourcentage de position sur l'image
+        let longitude_percentage = ((longitude - longitude_min) / (longitude_max - longitude_min)) * 100;
+        let latitude_percentage = ((latitude_min - latitude) / (latitude_min - latitude_max)) * 100;
 
-        // Récupérer l'élément du marqueur de l'utilisateur
+        console.log("Position sur l'image: ", longitude_percentage + "% (X), ", latitude_percentage + "% (Y)");
+
+        // Récupérer le marqueur utilisateur
         let userLocation = document.getElementById("user-location");
 
-        // Appliquer les pourcentages calculés pour positionner le marqueur
+        // Positionner le marqueur
         userLocation.style.left = longitude_percentage + "%";  // Position horizontale
         userLocation.style.top = latitude_percentage + "%";    // Position verticale
-        userLocation.style.display = "block";  // Afficher le marqueur
+        userLocation.style.display = "block"; // Afficher le marqueur
     } else {
-        alert("Les coordonnées GPS de l'utilisateur ne sont pas dans la zone définie.");
+        alert("Vous êtes en dehors de la zone définie pour l'hôpital.");
     }
 }
 
@@ -83,8 +82,9 @@ function showError(error) {
     }
 }
 
-// Attacher l'événement au bouton de localisation
+// Écouteur d'événement sur le bouton
 document.getElementById("location-btn").addEventListener("click", getLocation);
+
 
 
     </script>
