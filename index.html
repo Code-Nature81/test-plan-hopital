@@ -15,66 +15,66 @@
     <button id="location-btn">Démarrer la localisation</button>
 
     <script>
-        let watchID = null;
+ let watchID = null;
 
-        // Fonction pour activer la localisation en temps réel
-        function startTracking() {
-            if (navigator.geolocation) {
-                watchID = navigator.geolocation.watchPosition(updatePosition, showError, {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
-                });
-            } else {
-                alert("Votre navigateur ne supporte pas la géolocalisation.");
-            }
-        }
-        
-        // Mise à jour de la position sur le plan
-        function updatePosition(position) {
-            let longitude_min = 1.4598, longitude_max = 1.4602;
-            let latitude_min = 43.6280, latitude_max = 43.6277;
-        
-            let longitude = position.coords.longitude;
-            let latitude = position.coords.latitude;
-        
-            console.log("Position utilisateur:", longitude, latitude);
-        
-            if (longitude >= longitude_min && longitude <= longitude_max && latitude <= latitude_min && latitude >= latitude_max) {
-                let longitude_percentage = ((longitude - longitude_min) / (longitude_max - longitude_min)) * 100;
-                let latitude_percentage = ((latitude_min - latitude) / (latitude_min - latitude_max)) * 100;
-        
-                console.log("Position sur le plan: ", longitude_percentage + "% (X), ", latitude_percentage + "% (Y)");
-        
-                let userLocation = document.getElementById("user-location");
-                userLocation.style.left = longitude_percentage + "%";
-                userLocation.style.top = latitude_percentage + "%";
-                userLocation.style.display = "block";
-            } else {
-                alert("Vous êtes en dehors de la zone définie.");
-            }
-        }
-        
-        // Gestion des erreurs
-        function showError(error) {
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    alert("Autorisez la localisation pour voir votre position.");
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    alert("Localisation indisponible.");
-                    break;
-                case error.TIMEOUT:
-                    alert("La localisation a expiré.");
-                    break;
-                default:
-                    alert("Erreur inconnue.");
-            }
-        }
-        
-        // Initialisation
-        document.getElementById("location-btn").addEventListener("click", startTracking);
-        
+// Fonction pour activer la localisation en temps réel
+function startTracking() {
+    if (navigator.geolocation) {
+        watchID = navigator.geolocation.watchPosition(updatePosition, showError, {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        });
+    } else {
+        alert("Votre navigateur ne supporte pas la géolocalisation.");
+    }
+}
+
+// Mise à jour de la position sur le plan
+function updatePosition(position) {
+    let longitude_min = 1.4598, longitude_max = 1.4602;
+    let latitude_min = 43.6280, latitude_max = 43.6277;
+
+    let longitude = position.coords.longitude;
+    let latitude = position.coords.latitude;
+
+    console.log("Position utilisateur:", longitude, latitude);
+
+    if (longitude >= longitude_min && longitude <= longitude_max && latitude <= latitude_min && latitude >= latitude_max) {
+        let longitude_percentage = ((longitude - longitude_min) / (longitude_max - longitude_min)) * 100;
+        let latitude_percentage = ((latitude_min - latitude) / (latitude_min - latitude_max)) * 100;
+
+        console.log("Position sur le plan: ", longitude_percentage + "% (X), ", latitude_percentage + "% (Y)");
+
+        let userLocation = document.getElementById("user-location");
+        userLocation.style.left = longitude_percentage + "%";
+        userLocation.style.top = latitude_percentage + "%";
+        userLocation.style.display = "block";
+    } else {
+        alert("Vous êtes en dehors de la zone définie.");
+    }
+}
+
+// Gestion des erreurs
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            alert("Autorisez la localisation pour voir votre position.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("Localisation indisponible.");
+            break;
+        case error.TIMEOUT:
+            alert("La localisation a expiré.");
+            break;
+        default:
+            alert("Erreur inconnue.");
+    }
+}
+
+// Initialisation
+document.getElementById("location-btn").addEventListener("click", startTracking);
+
 
 
     </script>
