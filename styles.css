@@ -24,3 +24,22 @@
     border-radius: 50%;
     display: none;
 }
+
+/* Nouveau style pour le bouton de localisation */
+#location-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50; /* Couleur verte */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#location-btn:hover {
+    background-color: #45a049; /* Couleur plus foncée au survol */
+}
