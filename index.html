@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Géolocalisation sur le plan de l'hôpital</title>
+    <title>Plan de l'hôpital</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Localisation sur le plan de l'hôpital</h1>
+    <h1>Localisation sur le plan</h1>
     <div id="map-container">
-        <!-- L'image du plan -->
         <img id="map" src="plan_hopital.jpg" alt="Plan de l'hôpital">
-        <!-- Marqueur de la position de l'utilisateur -->
         <div id="user-location" class="user-location"></div>
     </div>
-    <!-- Nouveau bouton de localisation -->
-    <button id="location-btn">Se localiser</button>
+    <button id="location-btn">Démarrer la localisation</button>
 
     <script>
-      // Fonction pour obtenir la position de l'utilisateur
-function getLocation() {
+// Variable pour stocker l'ID du suivi de position
+let watchID = null;
+
+// Fonction pour obtenir la position de l'utilisateur en temps réel
+function startTracking() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError, {
+        watchID = navigator.geolocation.watchPosition(updatePosition, showError, {
             enableHighAccuracy: true,
             timeout: 10000,
             maximumAge: 0
@@ -31,8 +31,8 @@ function getLocation() {
     }
 }
 
-// Fonction pour afficher la position de l'utilisateur sur le plan
-function showPosition(position) {
+// Fonction pour mettre à jour la position de l'utilisateur sur le plan en temps réel
+function updatePosition(position) {
     // Bornes géographiques du plan de l'hôpital
     let longitude_min = 1.4598; 
     let longitude_max = 1.4602; 
@@ -83,8 +83,7 @@ function showError(error) {
 }
 
 // Écouteur d'événement sur le bouton
-document.getElementById("location-btn").addEventListener("click", getLocation);
-
+document.getElementById("location-btn").addEventListener("click", startTracking);
 
 
     </script>

@@ -1,45 +1,44 @@
-/* styles.css */
-
-/* Conteneur du plan */
+/* Conteneur de l'image */
 #map-container {
     position: relative;
-    width: 100vw; /* Largeur = 100% de l'écran */
-    height: 100vh; /* Hauteur = 100% de l'écran */
-    overflow: hidden; /* Empêche le débordement */
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* Image du plan */
 #map {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ajuste l’image sans la déformer */
+    object-fit: contain;
 }
 
-/* Marqueur de la localisation */
+/* Marqueur utilisateur */
 .user-location {
     position: absolute;
     width: 20px;
     height: 20px;
     background-color: red;
     border-radius: 50%;
+    border: 2px solid white;
     display: none;
+    transform: translate(-50%, -50%); /* Centre le point rouge */
 }
 
-/* Nouveau style pour le bouton de localisation */
+/* Style du bouton */
 #location-btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4CAF50; /* Couleur verte */
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #location-btn:hover {
-    background-color: #45a049; /* Couleur plus foncée au survol */
+    background-color: #45a049;
 }
