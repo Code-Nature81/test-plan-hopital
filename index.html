@@ -18,7 +18,7 @@
     <button id="location-btn">Se localiser</button>
 
     <script>
-        // script.js
+       // script.js
 
 // Fonction pour obtenir la position de l'utilisateur
 function getLocation() {
@@ -36,26 +36,34 @@ function getLocation() {
 // Fonction pour afficher la position de l'utilisateur sur le plan
 function showPosition(position) {
     // Définir les bornes géographiques du plan de l'hôpital
-    let longitude_min = 1.460062;   // Longitude minimale (exemple)
-    let longitude_max = 1.460021;   // Longitude maximale (exemple)
-    let latitude_min = 43.627834;   // Latitude minimale (exemple)
-    let latitude_max = 43.627777;   // Latitude maximale (exemple)
+    let longitude_min = 1.459953;   // Longitude minimale (exemple)
+    let longitude_max = 1.460151;   // Longitude maximale (exemple)
+    let latitude_min = 43.627868;   // Latitude minimale (exemple)
+    let latitude_max = 43.627779;   // Latitude maximale (exemple)
 
     // Coordonnées GPS de l'utilisateur
     let longitude = position.coords.longitude;
     let latitude = position.coords.latitude;
 
-    // Calcul des pourcentages pour la longitude et la latitude
-    let longitude_percentage = (longitude - longitude_min) / (longitude_max - longitude_min) * 100;
-    let latitude_percentage = (latitude_max - latitude) / (latitude_max - latitude_min) * 100;
+    // Vérification des coordonnées GPS de l'utilisateur
+    console.log("Coordonnées utilisateur:", longitude, latitude);
 
-    // Récupérer l'élément du marqueur de l'utilisateur
-    let userLocation = document.getElementById("user-location");
+    // Vérification si les coordonnées sont dans la zone
+    if (longitude >= longitude_min && longitude <= longitude_max && latitude >= latitude_min && latitude <= latitude_max) {
+        // Calcul des pourcentages pour la longitude et la latitude
+        let longitude_percentage = (longitude - longitude_min) / (longitude_max - longitude_min) * 100;
+        let latitude_percentage = (latitude_max - latitude) / (latitude_max - latitude_min) * 100;
 
-    // Appliquer les pourcentages calculés pour positionner le marqueur
-    userLocation.style.left = longitude_percentage + "%";  // Position horizontale
-    userLocation.style.top = latitude_percentage + "%";    // Position verticale
-    userLocation.style.display = "block";  // Afficher le marqueur
+        // Récupérer l'élément du marqueur de l'utilisateur
+        let userLocation = document.getElementById("user-location");
+
+        // Appliquer les pourcentages calculés pour positionner le marqueur
+        userLocation.style.left = longitude_percentage + "%";  // Position horizontale
+        userLocation.style.top = latitude_percentage + "%";    // Position verticale
+        userLocation.style.display = "block";  // Afficher le marqueur
+    } else {
+        alert("Les coordonnées GPS de l'utilisateur ne sont pas dans la zone définie.");
+    }
 }
 
 // Fonction pour gérer les erreurs de géolocalisation
@@ -74,6 +82,9 @@ function showError(error) {
             alert("Une erreur inconnue est survenue.");
     }
 }
+
+// Attacher l'événement au bouton de localisation
+document.getElementById("location-btn").addEventListener("click", getLocation);
 
 
     </script>
