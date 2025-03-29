@@ -3,7 +3,11 @@
 // Fonction pour obtenir la position de l'utilisateur
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        navigator.geolocation.getCurrentPosition(showPosition, showError, {
+            enableHighAccuracy: true, // Demander des résultats plus précis
+            timeout: 10000, // Temps d'attente maximum (en ms)
+            maximumAge: 0 // Ne pas utiliser une position mise en cache
+        });
     } else {
         alert("La géolocalisation n'est pas supportée par votre navigateur.");
     }
@@ -12,10 +16,10 @@ function getLocation() {
 // Fonction pour afficher la position de l'utilisateur sur le plan
 function showPosition(position) {
     // Définir les bornes géographiques du plan de l'hôpital
-    let longitude_min = 1.460026;   // Longitude minimale (exemple)
-    let longitude_max = 1.460089;   // Longitude maximale (exemple)
-    let latitude_min = 43.627886;   // Latitude minimale (exemple)
-    let latitude_max = 43.627878;   // Latitude maximale (exemple)
+    let longitude_min = 1.460062;   // Longitude minimale (exemple)
+    let longitude_max = 1.460021;   // Longitude maximale (exemple)
+    let latitude_min = 43.627834;   // Latitude minimale (exemple)
+    let latitude_max = 43.627777;   // Latitude maximale (exemple)
 
     // Coordonnées GPS de l'utilisateur
     let longitude = position.coords.longitude;
