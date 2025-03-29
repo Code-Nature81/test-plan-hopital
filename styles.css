@@ -18,9 +18,9 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: red;
+    background-color: rgb(21, 0, 255);
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid rgb(0, 115, 255);
     display: none;
     transform: translate(-50%, -50%); /* Centre le point rouge */
 }
