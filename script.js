@@ -12,10 +12,10 @@ function getLocation() {
 // Fonction pour afficher la position de l'utilisateur sur le plan
 function showPosition(position) {
     // Définir les bornes géographiques du plan de l'hôpital
-    let longitude_min = 2.3488;   // Longitude minimale (exemple)
-    let longitude_max = 2.3500;   // Longitude maximale (exemple)
-    let latitude_min = 48.8534;   // Latitude minimale (exemple)
-    let latitude_max = 48.8545;   // Latitude maximale (exemple)
+    let longitude_min = 1.460026;   // Longitude minimale (exemple)
+    let longitude_max = 1.460089;   // Longitude maximale (exemple)
+    let latitude_min = 43.627886;   // Latitude minimale (exemple)
+    let latitude_max = 43.627878;   // Latitude maximale (exemple)
 
     // Coordonnées GPS de l'utilisateur
     let longitude = position.coords.longitude;
